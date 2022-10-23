@@ -1,0 +1,107 @@
+version: "3.8"
+
+services:
+  backend: &backend_base
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: numurus-demo/backend
+    container_name: backend
+    command: yarn run server:start:production
+    environment:
+      DEBUG: "${DEBUG}"
+      NODE_TLS_REJECT_UNAUTHORIZED: "${NODE_TLS_REJECT_UNAUTHORIZED}"
+      APP_ENV: "${APP_ENV}"
+      APP_NAME: "${APP_NAME}"
+      APP_SECRET: "${APP_SECRET}"
+      APP_HOST_NAME: "${APP_HOST_NAME}"
+      APP_HOST_PROTOCOL: "${APP_HOST_PROTOCOL}"
+      APP_ADMIN_USER: "${APP_ADMIN_USER}"
+      APP_ADMIN_PASS: "${APP_ADMIN_PASS}"
+      APP_MAILER_USER: "${APP_MAILER_USER}"
+      APP_MAILER_PASS: "${APP_MAILER_PASS}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      DB_TYPE: "${DB_TYPE}"
+      DB_HOST: "${DB_HOST}"
+      DB_PORT: "${DB_PORT}"
+      DB_NAME: "${DB_NAME}"
+      DB_USER: "${DB_USER}"
+      DB_PASS: "${DB_PASS}"
+      DB_SSL: "${DB_SSL}"
+      DB_TZ: "${DB_TZ}"
+      STORAGE_TYPE: "${STORAGE_TYPE}"
+      STORAGE_HOST: "${STORAGE_HOST}"
+      STORAGE_PORT: "${STORAGE_PORT}"
+      STORAGE_BUCKET: "${STORAGE_BUCKET}"
+      STORAGE_ACCESS_KEY: "${STORAGE_ACCESS_KEY}"
+      STORAGE_SECRET_KEY: "${STORAGE_SECRET_KEY}"
+      STORAGE_SSL: "${STORAGE_SSL}"
+      REDIS_CORE_HOST: "${REDIS_CORE_HOST}"
+      REDIS_CUSTOM_HOST: "${REDIS_CUSTOM_HOST}"
+
+  backend-dev: &backend_base_dev
+    <<: *backend_base
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    image: numurus-demo/backend:dev
+    container_name: backend-dev
+    ports:
+      - "9229:9229"
+    volumes:
+      - ./:/src/numurus-demo/backend
+      - node_modules:/src/numurus-demo/backend/node_modules
+    command: yarn run server:start
+
+  backend-dev-test:
+    <<: *backend_base_dev
+    command: yarn test
+    environment:
+      DEBUG: "${DEBUG}"
+      NODE_ENV: test
+      NODE_TLS_REJECT_UNAUTHORIZED: "${NODE_TLS_REJECT_UNAUTHORIZED}"
+      APP_ENV: "${APP_ENV}"
+      APP_NAME: "${APP_NAME}"
+      APP_SECRET: "${APP_SECRET}"
+      APP_HOST_NAME: "${APP_HOST_NAME}"
+      APP_HOST_PROTOCOL: "${APP_HOST_PROTOCOL}"
+      APP_ADMIN_USER: "${APP_ADMIN_USER}"
+      APP_ADMIN_PASS: "${APP_ADMIN_PASS}"
+      APP_MAILER_USER: "${APP_MAILER_USER}"
+      APP_MAILER_PASS: "${APP_MAILER_PASS}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      DB_TYPE: "${DB_TYPE}"
+      DB_HOST: "${DB_HOST}"
+      DB_PORT: "${DB_PORT}"
+      DB_NAME: numurus-demo_test
+      DB_USER: "${DB_USER}"
+      DB_PASS: "${DB_PASS}"
+      DB_SSL: "${DB_SSL}"
+      DB_TZ: "${DB_TZ}"
+      STORAGE_TYPE: "${STORAGE_TYPE}"
+      STORAGE_HOST: "${STORAGE_HOST}"
+      STORAGE_PORT: "${STORAGE_PORT}"
+      STORAGE_BUCKET: "${STORAGE_BUCKET}"
+      STORAGE_ACCESS_KEY: "${STORAGE_ACCESS_KEY}"
+      STORAGE_SECRET_KEY: "${STORAGE_SECRET_KEY}"
+      STORAGE_SSL: "${STORAGE_SSL}"
+      REDIS_CORE_HOST: "${REDIS_CORE_HOST}"
+      REDIS_CUSTOM_HOST: "${REDIS_CUSTOM_HOST}"
+
+  backend-dev-no-db-setup:
+    <<: *backend_base_dev
+    command: yarn run server:start:no-setup
+
+  backend-db-setup:
+    <<: *backend_base
+    command: yarn run db:setup
+
+volumes:
+  node_modules:
+    name: numurus-demo-backend-nm
+
+networks:
+  default:
+    name: numurus-demo
