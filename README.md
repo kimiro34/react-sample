@@ -12,26 +12,26 @@ You may describe your solution in words or submit a code snippet that clearly il
  - `assessment-1` directory is code snippet of my previous React project and not fully working.
  - `assessment-2` directory describes my solution for 2nd task, the relationship between frontend and backend controller to update some sensor parameters.
 
-├── assessment-1
-│   ├── conainers
-│   │   ├── content
-│   │   ├── hoc
-│   │   ├── sidebar
-│   │   ├── ace-editor.jsx
-│   │   └── app.jsx
-│   │   └── editor-js.jsx
-│   │   └── layout.jsx
-│   │   └── theme-switcher.jsx
-├── assessment-2
-│   ├── backend
-│   │   └── business
-│   │   └── data-layer
-│   │   └── presentation
-│   │   └── docker-compose.yml
-│   │   └── Dockerfile
-│   │   └── package.json
-│   │   └── server.js
-│   ├── frontend
+├── assessment-1 <br />
+│   ├── conainers <br />
+│   │   ├── content <br />
+│   │   ├── hoc <br />
+│   │   ├── sidebar <br />
+│   │   ├── ace-editor.jsx <br />
+│   │   └── app.jsx <br />
+│   │   └── editor-js.jsx <br />
+│   │   └── layout.jsx <br />
+│   │   └── theme-switcher.jsx <br />
+├── assessment-2 <br />
+│   ├── backend <br />
+│   │   └── business <br />
+│   │   └── data-layer <br />
+│   │   └── presentation <br />
+│   │   └── docker-compose.yml <br />
+│   │   └── Dockerfile <br />
+│   │   └── package.json <br />
+│   │   └── server.js <br />
+│   ├── frontend <br />
 
 # Solution description
 
