@@ -32,6 +32,12 @@ You may describe your solution in words or submit a code snippet that clearly il
 │   │   └── package.json <br />
 │   │   └── server.js <br />
 │   ├── frontend <br />
+│   │   └── public <br />
+│   │   └── src <br />
+│   │   └── package.json <br />
+│   │   └── README.md <br />
+│   │   └── package.json <br />
+│   │   └── tsconfig.json <br />
 
 # Solution description
 
@@ -47,3 +53,26 @@ You may describe your solution in words or submit a code snippet that clearly il
     After a certain action is triggered, its update its view/layout/appearance and finally those values will be stored on backend database.
 
 ## Assessment 2
+
+Here we have 2 params - sensor1 variant is changing from 0 to 1 and sensor2 variant is changing from 0 to 10Hz.
+They are both controlled by slider bar on frontend. There can be 3 parameters to describe those sensor variants update component - title, slidebar and action buttons to save and cancel.
+So we can make make single component that has these 3 parameters as component props sth like this.
+
+```
+<SensorUpdate title={sensorVariantTitle} range={sensorVariantRange} />
+```
+
+After clicking `save` button on a sensor variant component, it will call an `POST` api on backend with request body `{ sensorVariantName: 'variant1', sensorVariantValue: 'x.x' }` and display the result with notification panel component.
+
+## Script to run
+
+```
+$ cd assessment-2/frontend
+$ npm start 
+```
+
+## Final view
+The final view of frontend page looks like this. (Didn't implemented some features like route definition on frontend due to lack of time)
+
+![Final view of frontend](./sensor-update-frontend.png)
+
